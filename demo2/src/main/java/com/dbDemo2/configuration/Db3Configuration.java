@@ -1,6 +1,6 @@
-package com.dbDemo1.dbConfig;
+package com.dbDemo2.configuration;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,44 +19,43 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.dbDemo1.dao.mysql",
-        entityManagerFactoryRef = "mysqlEntityManager",
-        transactionManagerRef = "mysqlTransactionManager"
+        basePackages = "com.dbDemo2.repository.db3",
+        entityManagerFactoryRef = "memberEntityManagerFactory",
+        transactionManagerRef = "memberTransactionManager"
 )
-public class MySqlConfiguration {
+public class Db3Configuration {
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.mysql.datasource")
-    public DataSourceProperties mysqlDataSourceProperties() {
+    @ConfigurationProperties("tonels.datasource.db3")
+    public DataSourceProperties memberDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.mysql.datasource.configuration")
-    public DataSource mysqlDataSource() {
-        return mysqlDataSourceProperties()
+    @ConfigurationProperties("tonels.datasource.db3.configuration")
+    public DataSource memberDataSource() {
+        return memberDataSourceProperties()
                 .initializeDataSourceBuilder()
-                .type(BasicDataSource.class)
+                .type(HikariDataSource.class)
                 .build();
     }
 
     @Primary
-    @Bean(name = "mysqlEntityManager")
-    public LocalContainerEntityManagerFactoryBean mysqlEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+    @Bean(name = "memberEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean memberEntityManagerFactory(EntityManagerFactoryBuilder builder) {
         return builder
-                .dataSource(mysqlDataSource())
-                .packages("com.dbDemo1.entity.mysql")
-//                .persistenceUnit("mysqlPU")
+                .dataSource(memberDataSource())
+                .packages("com.dbDemo2.model.db3")
                 .build();
     }
 
     @Primary
     @Bean
-    public PlatformTransactionManager mysqlTransactionManager(
-            final @Qualifier("mysqlEntityManager") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory.getObject());
+    public PlatformTransactionManager memberTransactionManager(
+            final @Qualifier("memberEntityManagerFactory") LocalContainerEntityManagerFactoryBean memberEntityManagerFactory) {
+        return new JpaTransactionManager(memberEntityManagerFactory.getObject());
     }
-}
 
+}

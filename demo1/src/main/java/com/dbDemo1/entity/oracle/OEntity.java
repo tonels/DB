@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dbDemo1.entity;
+package com.dbDemo1.entity.oracle;
 
 import javax.persistence.*;
 
@@ -22,7 +22,7 @@ import javax.persistence.*;
  * @author Marcos Barbero
  */
 @Entity
-@Table(name = "o_entity")
+@Table(name = "O_ENTITY")
 public class OEntity {
 
     @Id

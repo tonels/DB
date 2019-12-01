@@ -16,7 +16,7 @@
 
 package com.dbDemo1.dao.oracle;
 
-import com.dbDemo1.entity.OEntity;
+import com.dbDemo1.entity.oracle.OEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OEntityRepository extends JpaRepository<OEntity, Long> {

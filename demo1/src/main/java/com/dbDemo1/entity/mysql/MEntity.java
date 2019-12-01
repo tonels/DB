@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dbDemo1.entity;
+package com.dbDemo1.entity.mysql;
 
 import javax.persistence.*;
 

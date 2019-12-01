@@ -16,7 +16,7 @@
 
 package com.dbDemo1.dao.mysql;
 
-import com.dbDemo1.entity.MEntity;
+import com.dbDemo1.entity.mysql.MEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MEntityRepository extends JpaRepository<MEntity, Long> {
